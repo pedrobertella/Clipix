@@ -81,6 +81,9 @@
               </item>
               <item>
                <widget class="QSlider" name="sliderQualidade">
+                <property name="maximum">
+                 <number>100</number>
+                </property>
                 <property name="value">
                  <number>80</number>
                 </property>
@@ -341,6 +344,8 @@
     </property>
     <addaction name="actionAbrir_Imagens"/>
     <addaction name="separator"/>
+    <addaction name="actionAlternar_Tema"/>
+    <addaction name="separator"/>
     <addaction name="actionSAir"/>
    </widget>
    <widget class="QMenu" name="menuAjuda">
@@ -365,6 +370,9 @@
    <addaction name="menuAjuda"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -381,7 +389,7 @@
   <action name="actionAbrir_Imagens">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/images/new.png</normaloff>:/images/new.png</iconset>
+     <normaloff>:/images/add.png</normaloff>:/images/add.png</iconset>
    </property>
    <property name="text">
     <string>Abrir Imagens..</string>
@@ -405,13 +413,17 @@
   <action name="actionSobre">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/images/information.png</normaloff>:/images/information.png</iconset>
+     <normaloff>:/images/info.png</normaloff>:/images/info.png</iconset>
    </property>
    <property name="text">
     <string>Sobre</string>
    </property>
   </action>
   <action name="actionSobre_Qt">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/images/qt.png</normaloff>:/images/qt.png</iconset>
+   </property>
    <property name="text">
     <string>Sobre Qt</string>
    </property>
@@ -419,7 +431,7 @@
   <action name="actionIniciar">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
+     <normaloff>:/images/start.png</normaloff>:/images/start.png</iconset>
    </property>
    <property name="text">
     <string>Iniciar</string>
@@ -431,7 +443,7 @@
   <action name="actionLimpar_Arquivos">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/images/delete.png</normaloff>:/images/delete.png</iconset>
+     <normaloff>:/images/remove.png</normaloff>:/images/remove.png</iconset>
    </property>
    <property name="text">
     <string>Remover Arquivos Selecionados</string>
@@ -440,10 +452,19 @@
   <action name="actionVoltar_aos_Padr_es">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/images/preferencias.png</normaloff>:/images/preferencias.png</iconset>
+     <normaloff>:/images/back.png</normaloff>:/images/back.png</iconset>
    </property>
    <property name="text">
     <string>Voltar aos Padrões</string>
+   </property>
+  </action>
+  <action name="actionAlternar_Tema">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/images/theme.png</normaloff>:/images/theme.png</iconset>
+   </property>
+   <property name="text">
+    <string>Alternar Tema</string>
    </property>
   </action>
  </widget>

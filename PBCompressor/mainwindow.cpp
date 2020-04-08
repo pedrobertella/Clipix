@@ -8,12 +8,15 @@
 #include <QUrl>
 #include <QDebug>
 #include <QPainter>
+#include <QSettings>
+#include <QStyleFactory>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent, QApplication *a) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    app=a;
     pbar = new QProgressBar();
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
@@ -220,9 +223,9 @@ void MainWindow::on_actionIniciar_triggered()
 void MainWindow::on_actionSobre_triggered()
 {
     QMessageBox *msg = new QMessageBox();
-    msg->setText("Sobre PBCompressor v1.0");
+    msg->setText("Sobre PBCompressor v1.1");
     msg->setIcon(QMessageBox::Information);
-    msg->setInformativeText("Desenvolvido por Pedro Bertella, 2019.");
+    msg->setInformativeText("Desenvolvido por Pedro Bertella, 2020.");
     msg->setStandardButtons(QMessageBox::Ok);
     msg->exec();
 }
@@ -230,4 +233,43 @@ void MainWindow::on_actionSobre_triggered()
 void MainWindow::on_actionSobre_Qt_triggered()
 {
     QApplication::aboutQt();
+}
+
+void MainWindow::on_actionAlternar_Tema_triggered()
+{
+    QSettings settings("Pedro Bertella", "PBCompressor");
+    QVariant check = settings.value("tema");
+    if(check.isNull()){
+        settings.setValue("tema", 0);
+    }
+    if(settings.value("tema").toInt()==0){
+        settings.setValue("tema", 1);
+        app->setStyle(QStyleFactory::create("Fusion"));
+        QPalette p = app->palette();
+        p.setColor(QPalette::Window,QColor(53,53,53));
+        p.setColor(QPalette::WindowText,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::WindowText,QColor(127,127,127));
+        p.setColor(QPalette::Base,QColor(42,42,42));
+        p.setColor(QPalette::AlternateBase,QColor(66,66,66));
+        p.setColor(QPalette::ToolTipBase,Qt::white);
+        p.setColor(QPalette::ToolTipText,Qt::white);
+        p.setColor(QPalette::Text,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::Text,QColor(127,127,127));
+        p.setColor(QPalette::Dark,QColor(35,35,35));
+        p.setColor(QPalette::Shadow,QColor(20,20,20));
+        p.setColor(QPalette::Button,QColor(53,53,53));
+        p.setColor(QPalette::ButtonText,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(127,127,127));
+        p.setColor(QPalette::BrightText,Qt::red);
+        p.setColor(QPalette::Link,QColor(42,130,218));
+        p.setColor(QPalette::Highlight,QColor(42,130,218));
+        p.setColor(QPalette::Disabled,QPalette::Highlight,QColor(80,80,80));
+        p.setColor(QPalette::HighlightedText,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::HighlightedText,QColor(127,127,127));
+        qApp->setPalette(p);
+    }else{
+        settings.setValue("tema", 0);
+        app->setStyle(QStyleFactory::create("Fusion"));
+        app->setPalette(QStyleFactory::create("fusion")->standardPalette());
+    }
 }

@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr, QApplication *a = nullptr);
     ~MainWindow();
     void dragEnterEvent(QDragEnterEvent *e);
     void dropEvent(QDropEvent *e);
@@ -50,8 +50,11 @@ private slots:
 
     void on_actionSobre_Qt_triggered();
 
+    void on_actionAlternar_Tema_triggered();
+
 private:
     Ui::MainWindow *ui;
+    QApplication *app;
     bool goodPath();
     bool compressImages(QString path, QString finalName);
     QString getSavePath(QString fullPath);
