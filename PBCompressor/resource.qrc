@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/calc.png</file>
+        <file>images/compress.png</file>
+        <file>images/configuracoes.png</file>
+        <file>images/convert.png</file>
+        <file>images/delete.png</file>
+        <file>images/error.png</file>
+        <file>images/exit.png</file>
+        <file>images/information.png</file>
+        <file>images/new.png</file>
+        <file>images/play.png</file>
+        <file>images/preferencias.png</file>
+        <file>images/refresh.png</file>
+        <file>images/resize.png</file>
+        <file>images/success.png</file>
+        <file>images/text.png</file>
+        <file>images/tools.png</file>
+        <file>images/warning.png</file>
+        <file>images/icon.png</file>
+    </qresource>
+</RCC>
