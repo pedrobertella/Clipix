@@ -1,4 +1,4 @@
-# PBCompressor
+# Clipix
  
-Um compressor e converor de imagens simples e rápido...</br></br>
-Desenvolvido utilizando o Framework Qt 5.14.1
+Um compressor, conversor e redimensionador de imagens simples e rápido...</br></br>
+Desenvolvido utilizando o Toolkit Qt 5.15.0
