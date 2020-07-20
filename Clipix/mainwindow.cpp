@@ -11,12 +11,12 @@
 #include <QSettings>
 #include <QStyleFactory>
 
-MainWindow::MainWindow(QWidget *parent, QApplication *a) :
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    app=a;
+    loadThemeSetting();
     pbar = new QProgressBar();
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
@@ -140,7 +140,7 @@ QString MainWindow::getSavePath(QString fullPath)
     QString saveFilePath;
     QStringList filePathList = filePath.split('/');
     QString fileName = filePathList.at(filePathList.count() - 1);
-    fileName = fileName.split(".",QString::SkipEmptyParts).at(0);
+    fileName = fileName.split(".", Qt::SkipEmptyParts).at(0);
     saveFilePath = QString(ui->lineCaminho->text() + "/" + fileName + "." + ui->comboFormato->currentText());
     return saveFilePath;
 }
@@ -165,6 +165,52 @@ int MainWindow::getNewHeight(int size)
         newSize = ui->spinAltPix->value();
     }
     return newSize;
+}
+
+void MainWindow::loadThemeSetting()
+{
+    QSettings s("Pedro Bertella", "Clipix");
+    QVariant check = s.value("tema");
+    if(check.isNull()){
+        qDebug( ) << "oi";
+        s.setValue("tema", 0);
+    }
+    setTheme(s.value("tema").toInt());
+}
+
+void MainWindow::setTheme(int themeID)
+{
+    if(themeID==0){
+        qApp->setStyle(QStyleFactory::create("Fusion"));
+        QPalette p = qApp->palette();
+        p.setColor(QPalette::Window,QColor(53,53,53));
+        p.setColor(QPalette::WindowText,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::WindowText,QColor(127,127,127));
+        p.setColor(QPalette::Base,QColor(42,42,42));
+        p.setColor(QPalette::AlternateBase,QColor(66,66,66));
+        p.setColor(QPalette::ToolTipBase,Qt::white);
+        p.setColor(QPalette::ToolTipText,Qt::white);
+        p.setColor(QPalette::Text,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::Text,QColor(127,127,127));
+        p.setColor(QPalette::Dark,QColor(35,35,35));
+        p.setColor(QPalette::Shadow,QColor(20,20,20));
+        p.setColor(QPalette::Button,QColor(53,53,53));
+        p.setColor(QPalette::ButtonText,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(127,127,127));
+        p.setColor(QPalette::BrightText,Qt::red);
+        p.setColor(QPalette::Link,QColor(42,130,218));
+        p.setColor(QPalette::Highlight,QColor(42,130,218));
+        p.setColor(QPalette::Disabled,QPalette::Highlight,QColor(80,80,80));
+        p.setColor(QPalette::HighlightedText,Qt::white);
+        p.setColor(QPalette::Disabled,QPalette::HighlightedText,QColor(127,127,127));
+        qApp->setPalette(p);
+    }else if(themeID==1){
+        qApp->setStyle(QStyleFactory::create("Fusion"));
+        qApp->setPalette(QStyleFactory::create("fusion")->standardPalette());
+    }else{
+        qApp->setStyle(QStyleFactory::create("windowsvista"));
+        qApp->setPalette(QStyleFactory::create("windowsvista")->standardPalette());
+    }
 }
 
 void MainWindow::on_spinAltPor_valueChanged(int arg1)
@@ -239,42 +285,12 @@ void MainWindow::on_actionSobre_Qt_triggered()
 void MainWindow::on_actionAlternar_Tema_triggered()
 {
     QSettings settings("Pedro Bertella", "Clipix");
-    QVariant check = settings.value("tema");
-    if(check.isNull()){
-        settings.setValue("tema", 0);
-    }
     if(settings.value("tema").toInt()==0){
         settings.setValue("tema", 1);
-        app->setStyle(QStyleFactory::create("Fusion"));
-        QPalette p = app->palette();
-        p.setColor(QPalette::Window,QColor(53,53,53));
-        p.setColor(QPalette::WindowText,Qt::white);
-        p.setColor(QPalette::Disabled,QPalette::WindowText,QColor(127,127,127));
-        p.setColor(QPalette::Base,QColor(42,42,42));
-        p.setColor(QPalette::AlternateBase,QColor(66,66,66));
-        p.setColor(QPalette::ToolTipBase,Qt::white);
-        p.setColor(QPalette::ToolTipText,Qt::white);
-        p.setColor(QPalette::Text,Qt::white);
-        p.setColor(QPalette::Disabled,QPalette::Text,QColor(127,127,127));
-        p.setColor(QPalette::Dark,QColor(35,35,35));
-        p.setColor(QPalette::Shadow,QColor(20,20,20));
-        p.setColor(QPalette::Button,QColor(53,53,53));
-        p.setColor(QPalette::ButtonText,Qt::white);
-        p.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(127,127,127));
-        p.setColor(QPalette::BrightText,Qt::red);
-        p.setColor(QPalette::Link,QColor(42,130,218));
-        p.setColor(QPalette::Highlight,QColor(42,130,218));
-        p.setColor(QPalette::Disabled,QPalette::Highlight,QColor(80,80,80));
-        p.setColor(QPalette::HighlightedText,Qt::white);
-        p.setColor(QPalette::Disabled,QPalette::HighlightedText,QColor(127,127,127));
-        qApp->setPalette(p);
     }else if(settings.value("tema").toInt()==1){
         settings.setValue("tema", 2);
-        app->setStyle(QStyleFactory::create("Fusion"));
-        app->setPalette(QStyleFactory::create("fusion")->standardPalette());
     }else{
         settings.setValue("tema", 0);
-        app->setStyle(QStyleFactory::create("windowsvista"));
-        app->setPalette(QStyleFactory::create("windowsvista")->standardPalette());
     }
+    setTheme(settings.value("tema").toInt());
 }

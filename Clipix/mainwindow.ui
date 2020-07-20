@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
-    <height>459</height>
+    <width>801</width>
+    <height>512</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>700</width>
-    <height>400</height>
+    <height>500</height>
    </size>
   </property>
   <property name="acceptDrops">
@@ -334,7 +334,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>718</width>
+     <width>801</width>
      <height>26</height>
     </rect>
    </property>
@@ -448,6 +448,9 @@
    <property name="text">
     <string>Remover Arquivos Selecionados</string>
    </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
   </action>
   <action name="actionVoltar_aos_Padr_es">
    <property name="icon">
@@ -457,6 +460,9 @@
    <property name="text">
     <string>Voltar aos Padrões</string>
    </property>
+   <property name="shortcut">
+    <string>F9</string>
+   </property>
   </action>
   <action name="actionAlternar_Tema">
    <property name="icon">
@@ -465,6 +471,9 @@
    </property>
    <property name="text">
     <string>Alternar Tema</string>
+   </property>
+   <property name="shortcut">
+    <string>F6</string>
    </property>
   </action>
  </widget>
