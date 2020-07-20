@@ -35,7 +35,7 @@ MainWindow::~MainWindow()
 void MainWindow::dragEnterEvent(QDragEnterEvent *e)
 {
     if (e->mimeData()->hasUrls()) {
-       e->acceptProposedAction();
+        e->acceptProposedAction();
     }
 }
 
@@ -43,7 +43,8 @@ void MainWindow::dropEvent(QDropEvent *e)
 {
     foreach (const QUrl &url, e->mimeData()->urls()) {
         QString fileName = url.toLocalFile();
-        QString extension = fileName.split(".",QString::SkipEmptyParts).at(1);
+        QFileInfo f(url.toLocalFile());
+        QString extension = f.suffix();
         if(extension=="jpg" || extension=="JPG" || extension=="jpeg" || extension=="JPEG" || extension=="png" ||extension=="PNG" ||extension=="GIF" ||extension=="gif" || extension=="bmp" || extension=="BMP"){
             ui->listImagens->addItem(new QListWidgetItem(QIcon(fileName), fileName));
         }
@@ -58,10 +59,10 @@ void MainWindow::on_spinQualidade_valueChanged(int arg1)
 
 void MainWindow::on_radioPorcentagem_toggled(bool checked)
 {
-        ui->spinAltPor->setEnabled(checked);
-        ui->spinLarPor->setEnabled(checked);
-        ui->spinAltPix->setEnabled(!checked);
-        ui->spinLarPix->setEnabled(!checked);
+    ui->spinAltPor->setEnabled(checked);
+    ui->spinLarPor->setEnabled(checked);
+    ui->spinAltPix->setEnabled(!checked);
+    ui->spinLarPix->setEnabled(!checked);
 }
 
 void MainWindow::on_sliderQualidade_valueChanged(int value)
@@ -85,7 +86,7 @@ void MainWindow::on_actionLimpar_Arquivos_triggered()
     QList<QListWidgetItem*> itens = ui->listImagens->selectedItems();
     foreach(QListWidgetItem *i, itens){
         delete i;
-   }
+    }
 }
 
 void MainWindow::on_actionAbrir_Imagens_triggered()
@@ -146,13 +147,13 @@ QString MainWindow::getSavePath(QString fullPath)
 
 int MainWindow::getNewWitdh(int size)
 {
-   int newSize;
-   if(ui->radioPorcentagem->isChecked()){
-       newSize = (ui->spinLarPor->value()*size)/100;
-   }else{
-       newSize = ui->spinLarPix->value();
-   }
-   return newSize;
+    int newSize;
+    if(ui->radioPorcentagem->isChecked()){
+        newSize = (ui->spinLarPor->value()*size)/100;
+    }else{
+        newSize = ui->spinLarPix->value();
+    }
+    return newSize;
 }
 
 int MainWindow::getNewHeight(int size)
@@ -223,7 +224,7 @@ void MainWindow::on_actionIniciar_triggered()
 void MainWindow::on_actionSobre_triggered()
 {
     QMessageBox *msg = new QMessageBox();
-    msg->setText("Sobre PBCompressor v1.1");
+    msg->setText("Sobre Clipix v1.2");
     msg->setIcon(QMessageBox::Information);
     msg->setInformativeText("Desenvolvido por Pedro Bertella, 2020.");
     msg->setStandardButtons(QMessageBox::Ok);
@@ -237,7 +238,7 @@ void MainWindow::on_actionSobre_Qt_triggered()
 
 void MainWindow::on_actionAlternar_Tema_triggered()
 {
-    QSettings settings("Pedro Bertella", "PBCompressor");
+    QSettings settings("Pedro Bertella", "Clipix");
     QVariant check = settings.value("tema");
     if(check.isNull()){
         settings.setValue("tema", 0);
@@ -267,9 +268,13 @@ void MainWindow::on_actionAlternar_Tema_triggered()
         p.setColor(QPalette::HighlightedText,Qt::white);
         p.setColor(QPalette::Disabled,QPalette::HighlightedText,QColor(127,127,127));
         qApp->setPalette(p);
-    }else{
-        settings.setValue("tema", 0);
+    }else if(settings.value("tema").toInt()==1){
+        settings.setValue("tema", 2);
         app->setStyle(QStyleFactory::create("Fusion"));
         app->setPalette(QStyleFactory::create("fusion")->standardPalette());
+    }else{
+        settings.setValue("tema", 0);
+        app->setStyle(QStyleFactory::create("windowsvista"));
+        app->setPalette(QStyleFactory::create("windowsvista")->standardPalette());
     }
 }

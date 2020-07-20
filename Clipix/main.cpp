@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QSettings settings("Pedro Bertella", "PBCompressor");
+    QSettings settings("Pedro Bertella", "Clipix");
     QVariant check = settings.value("tema");
     if(check.isNull()){
         settings.setValue("tema", 0);

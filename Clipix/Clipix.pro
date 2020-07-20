@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = PBCompressor
+TARGET = Clipix
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -42,4 +42,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     resource.qrc
 
-RC_FILE = icon_insert.dat
+RC_FILE = winres.rc
